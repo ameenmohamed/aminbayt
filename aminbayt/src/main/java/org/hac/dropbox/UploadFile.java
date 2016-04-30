@@ -20,6 +20,7 @@ public class UploadFile {
 	public static void uploadToDropbox(String flLoc) {
 		
 	        File inputFile = new File(flLoc);
+	      
 	        if(!inputFile.exists()){
 	        	for(int i=0;i<3;i++){
 	        		try {	
@@ -33,6 +34,7 @@ public class UploadFile {
 	        }
 	        try {
 	       //  inputStream = new FileInputStream(inputFile);
+	        	// file is resized in memory and written to drop box directly from inputstream 
 	        	InputStream inputStream =null;
 	        	if(ImageResizer.isImage(inputFile)){
 	        	 inputStream = ImageResizer.createResizedCopy(flLoc, BaytConstants.RESIZE_VALUE);

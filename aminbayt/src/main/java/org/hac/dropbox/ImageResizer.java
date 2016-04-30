@@ -31,10 +31,12 @@ public class ImageResizer {
 	}
 	
 		static InputStream createResizedCopy(String insrcFile,int pixel) throws IOException{
+			 
 			//,String _outFile
 			InputStream is = null;
 			long startTime = System.nanoTime();
 			File srcFl = new File(insrcFile);
+			
 			if(!srcFl.exists()){
 				for (int i = 0; i < 5; i++) {
 					try {
@@ -47,6 +49,7 @@ public class ImageResizer {
 				}
 			}
 			if(isImage(srcFl) && srcFl.exists()){
+				
 			BufferedImage srcImage = ImageIO.read(srcFl);
 			// Scale the image using the imgscalr library
 			BufferedImage scaledImage = org.imgscalr.Scalr.resize(srcImage, pixel);

@@ -1,6 +1,7 @@
 package org.hac.arduino.comm.serial.helper;
 
 import org.hac.dropbox.ClickPic;
+import org.hac.homesecurity.aminbayt.util.BaytConstants;
 
 public class MotionAction {
 	String fileName = "";
@@ -43,13 +44,13 @@ public class MotionAction {
 	@Override
 	public void run() {
 		String filename = "";
-		if(jsonStr.contains("\"Motion\":\"1\"")){ // 
+		if(jsonStr.contains("\"Motion\":\"1\"") && BaytConstants.ACTIVE_SECURITY){ // 
 			// click pic save to dropbox 
-			 filename = ClickPic.click();
+			 filename = CaptureImageHelper.captureImage();
 			try {Thread.sleep(5000);	} catch (InterruptedException e) {e.printStackTrace();
-			filename +=" ,"+ ClickPic.click();
+			filename +=" ,"+  CaptureImageHelper.captureImage();
 			try {Thread.sleep(5000);	} catch (InterruptedException e1) {e1.printStackTrace();
-			filename +=" ,"+ ClickPic.click();
+			filename +=" ,"+ CaptureImageHelper.captureImage();
 			}
 			}
 		}

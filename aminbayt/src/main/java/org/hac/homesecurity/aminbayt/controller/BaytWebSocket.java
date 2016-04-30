@@ -14,6 +14,7 @@ import javax.websocket.server.ServerEndpoint;
 import org.hac.arduino.comm.serial.ArduinoData;
 import org.hac.arduino.comm.serial.StartTalking;
 import org.hac.arduino.comm.serial.helper.CaptureImageHelper;
+import org.hac.homesecurity.aminbayt.util.BaytConstants;
  
 @ServerEndpoint("/websocket")
 public class BaytWebSocket {
@@ -56,6 +57,13 @@ public class BaytWebSocket {
         case "closeconn":
         	talkArd.closeConn();
         	session.getBasicRemote().sendText("Connection Closed ");
+        	break;
+        case "activatesec":
+        	BaytConstants.ACTIVE_SECURITY=true;
+        	break;
+        case "deactivatesec":	
+        	BaytConstants.ACTIVE_SECURITY=false;
+        	break;
         default:
         	talkArd.sendData(message);
         

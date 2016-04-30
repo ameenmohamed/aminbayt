@@ -17,6 +17,7 @@ public final class BaytConstants {
      public static String DROPBOX_VID_LOCATION = "/pi/shafipi/video";
      public final static int RESIZE_VALUE = 1550;
      
+     public static boolean ACTIVE_SECURITY = false;
   
     public static DbxClientV1 client = null;
      

@@ -5,7 +5,7 @@ import org.hac.dropbox.ClickPic;
 public class CaptureImageHelper {
 
 		public static String captureImage(){
-			 String filename = ClickPic.click();
+			 String filename = ClickPic.apiClick();
 			return filename;
 		}
 	
