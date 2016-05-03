@@ -15,7 +15,8 @@ public final class BaytConstants {
      static String ACCESS_TOKEN = "0oMJPCilPk8AAAAAAAAEPvCJEBOLgj1TeW92uxptYYKGQmAUsZVpBkKrbuJxstiv";
      public static String DROPBOX_PIC_LOCATION = "/pi/shafipi";
      public static String DROPBOX_VID_LOCATION = "/pi/shafipi/video";
-     public final static int RESIZE_VALUE = 1550;
+    // public final static int RESIZE_VALUE = 1550;
+     public final static int RESIZE_VALUE = 75;
      
      public static boolean ACTIVE_SECURITY = false;
   

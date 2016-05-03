@@ -30,8 +30,8 @@ import com.fazecast.jSerialComm.SerialPort;
 public class StartTalking  {
 
 	static ObjectMapper mapper = new ObjectMapper();
-	static ArduinoData dataard = null;
-	static String jsonStrFeed ="{}";
+	public static ArduinoData dataard = null;
+	public static String jsonStrFeed ="{}";
 	static Session _session=null;
 
 	public Session getSession() {

@@ -36,9 +36,13 @@ public class UploadFile {
 	       //  inputStream = new FileInputStream(inputFile);
 	        	// file is resized in memory and written to drop box directly from inputstream 
 	        	InputStream inputStream =null;
-	        	if(ImageResizer.isImage(inputFile)){
-	        	 inputStream = ImageResizer.createResizedCopy(flLoc, BaytConstants.RESIZE_VALUE);
-	        	}else if(ImageResizer.isMp4(inputFile)){
+	        	if(BaytConstants.RESIZE_VALUE > 150){
+		        	if(ImageResizer.isImage(inputFile)){
+		        	 inputStream = ImageResizer.createResizedCopy(flLoc, BaytConstants.RESIZE_VALUE);
+		        	}else if(ImageResizer.isMp4(inputFile)){
+		        		inputStream = new FileInputStream(inputFile);
+		        	}
+	        	}else if(BaytConstants.RESIZE_VALUE <= 75){//dont resize for image quality 75
 	        		inputStream = new FileInputStream(inputFile);
 	        	}
 	        	if(inputStream !=null){

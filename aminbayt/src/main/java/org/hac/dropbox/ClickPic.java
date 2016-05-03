@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.hac.arduino.comm.serial.StartTalking;
 import org.hac.homesecurity.aminbayt.util.BaytConstants;
 
 import com.hopding.jrpicam.RPiCamera;
@@ -24,7 +25,7 @@ public class ClickPic {
 	   public static final String _raspistillPath = "/home/pi/mmal/pic";
 	 //  private static final String _raspistillPath = "/home/pi/ammotion/pic";
 	   // Define the amount of time that the camera will use to take a photo.
-	   public static final int _picTimeout = 7000;
+	   public static final int _picTimeout = 3000;
 	   // Define the image quality.
 	   public static final int _picQuality = 100;
 
@@ -88,6 +89,22 @@ public class ClickPic {
 			piCamera.setFullPreviewOff();
 			piCamera.setQuality(BaytConstants.RESIZE_VALUE);
 			//Add Raw Bayer data to image files created by Camera.
+			String feed = StartTalking.jsonStrFeed;
+			int ltVal = 0;
+			if(feed !=null){
+			int ltpos = (feed.indexOf("light"))+8;
+			int ltval = (feed.indexOf("Motion"))-3;
+			
+			String ltValStr = feed.substring(ltpos,ltval);
+			
+			 ltVal = Integer.parseInt(ltValStr);
+			}
+			if(ltVal > 9000){
+				piCamera.setExposure(Exposure.NIGHT);
+				piCamera.setISO(800);
+			}else{
+				piCamera.setExposure(Exposure.AUTO);
+			}
 			piCamera.setAddRawBayer(true);
 			File flPic = piCamera.takeStill(getFileName());
 			 Thread.sleep(_picTimeout);
