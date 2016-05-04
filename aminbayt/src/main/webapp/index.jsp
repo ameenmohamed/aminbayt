@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,7 @@
     <div id="messages"></div>
     <div id="cmdresp"></div>
     <script type="text/javascript">
-        var webSocket = new WebSocket('ws://192.168.1.1:28080/aminbayt/websocket');
+        var webSocket = new WebSocket('ws://<%= request.getServerName() %>:<%= request.getServerPort() %>/aminbayt/websocket');
 
         webSocket.onerror = function(event) {
             onError(event)
@@ -30,6 +32,7 @@
             if(event.data.indexOf("Time") == 0){
             document.getElementById('messages').innerHTML = '<br />' + event.data;
             }else{
+            	 document.getElementById("userinput").value = "";
             	 document.getElementById('cmdresp').innerHTML += '<br />' + event.data;
                 }
         }
