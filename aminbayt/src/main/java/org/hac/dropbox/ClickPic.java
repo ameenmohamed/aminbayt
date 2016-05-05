@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hac.arduino.comm.serial.StartTalking;
+import org.hac.homesecurity.aminbayt.controller.BaytWebSocket;
 import org.hac.homesecurity.aminbayt.util.BaytConstants;
 
 import com.hopding.jrpicam.RPiCamera;
@@ -74,14 +75,14 @@ public class ClickPic {
 		 String flNameLoc = "";
 		 try {
 			RPiCamera piCamera = new RPiCamera(_raspistillPath);
-			piCamera.setWidth(500); 
-			piCamera.setHeight(500);
+			piCamera.setWidth(1550); 
+			piCamera.setHeight(1163);
 
 			//Adjust Camera's brightness setting.
-			piCamera.setBrightness(75);
+		//	piCamera.setBrightness(75);
 
 			//Set Camera's exposure.
-			piCamera.setExposure(Exposure.AUTO);
+		//	piCamera.setExposure(Exposure.AUTO);
 
 			//Set Camera's timeout.
 			piCamera.setTimeout(2);
@@ -91,24 +92,34 @@ public class ClickPic {
 			//Add Raw Bayer data to image files created by Camera.
 			String feed = StartTalking.jsonStrFeed;
 			int ltVal = 0;
-			if(feed !=null){
-			int ltpos = (feed.indexOf("light"))+8;
-			int ltval = (feed.indexOf("Motion"))-3;
-			
-			String ltValStr = feed.substring(ltpos,ltval);
-			
-			 ltVal = Integer.parseInt(ltValStr);
+			boolean lton = false;
+			CharSequence seq = "{";
+			if(feed !=null && feed.contains(seq)){
+				int ltpos = (feed.indexOf("light"))+8;
+				int ltval = (feed.indexOf("Motion"))-3;			
+				String ltValStr = feed.substring(ltpos,ltval);
+				 ltVal = Integer.parseInt(ltValStr);
+				 System.out.println("light value:"+ltVal);
 			}
-			if(ltVal > 9000){
+			if(ltVal > 900){
+				System.out.println("picture in night mode ");
+				BaytWebSocket.talkArd.sendData("ltons1");
+				Thread.sleep(2000);
+				lton = true;
 				piCamera.setExposure(Exposure.NIGHT);
 				piCamera.setISO(800);
+				piCamera.setShutter(BaytConstants.NIGHT_SHUTTER_SPEED);
 			}else{
+				System.out.println("picture in auto mode ");
+				BaytWebSocket.talkArd.sendData("ltoffs1");
 				piCamera.setExposure(Exposure.AUTO);
 			}
 			piCamera.setAddRawBayer(true);
 			File flPic = piCamera.takeStill(getFileName());
 			 Thread.sleep(_picTimeout);
-			
+			if(lton){
+				BaytWebSocket.talkArd.sendData("ltoffs1");
+			}
 			
 	         if(flPic.exists()){
 	        	 UploadFile.uploadToDropbox(flPic.getAbsolutePath());

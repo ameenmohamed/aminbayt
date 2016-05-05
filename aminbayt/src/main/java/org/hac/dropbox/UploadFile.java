@@ -25,7 +25,7 @@ public class UploadFile {
 	        	for(int i=0;i<3;i++){
 	        		try {	
 	        			if(!inputFile.exists()){
-	        			Thread.sleep(1000);
+	        			Thread.sleep(500);
 	        			}else{break;}
 					} catch (InterruptedException e) {e.printStackTrace();	}
 	        	}
@@ -36,13 +36,16 @@ public class UploadFile {
 	       //  inputStream = new FileInputStream(inputFile);
 	        	// file is resized in memory and written to drop box directly from inputstream 
 	        	InputStream inputStream =null;
-	        	if(BaytConstants.RESIZE_VALUE > 150){
+	        	double bytes = inputFile.length();
+	        	double kilobytes = (bytes / 1024);
+	        	
+	        	if(kilobytes > 300){
 		        	if(ImageResizer.isImage(inputFile)){
-		        	 inputStream = ImageResizer.createResizedCopy(flLoc, BaytConstants.RESIZE_VALUE);
+		        	 inputStream = ImageResizer.createResizedCopy(flLoc, BaytConstants.RESIZE_QUALITY);
 		        	}else if(ImageResizer.isMp4(inputFile)){
 		        		inputStream = new FileInputStream(inputFile);
 		        	}
-	        	}else if(BaytConstants.RESIZE_VALUE <= 75){//dont resize for image quality 75
+	        	}else {
 	        		inputStream = new FileInputStream(inputFile);
 	        	}
 	        	if(inputStream !=null){

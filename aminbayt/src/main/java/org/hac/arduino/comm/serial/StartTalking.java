@@ -165,7 +165,10 @@ class ReadSerialThread  implements Runnable  {
 		while(StartTalking.isPortOpen()){
 		while(StartTalking.data.hasNextLine()){
 			String lineFeed = StartTalking.data.nextLine();
+			CharSequence seq = "{";
+			if(lineFeed.contains(seq)){
 			StartTalking.jsonStrFeed = lineFeed;
+			
 			MotionAction maction = new MotionAction();
 			maction.parseImageTask(StartTalking.jsonStrFeed);
 			if(StartTalking._session !=null){
@@ -175,7 +178,9 @@ class ReadSerialThread  implements Runnable  {
 				} catch (IOException e) {				
 					e.printStackTrace();
 				}				
-			}		
+			}
+			try {Thread.sleep(500);	} catch (InterruptedException e) {e.printStackTrace();	}
+		}//endif feed
 		}	
 		}//wtrue
 	}
