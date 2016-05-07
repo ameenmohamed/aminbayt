@@ -75,8 +75,8 @@ public class ClickPic {
 		 String flNameLoc = "";
 		 try {
 			RPiCamera piCamera = new RPiCamera(_raspistillPath);
-			piCamera.setWidth(1550); 
-			piCamera.setHeight(1163);
+			piCamera.setWidth(BaytConstants.PICWIDTH); 
+			piCamera.setHeight(BaytConstants.PICHEIGHT);
 
 			//Adjust Camera's brightness setting.
 		//	piCamera.setBrightness(75);
@@ -101,24 +101,24 @@ public class ClickPic {
 				 ltVal = Integer.parseInt(ltValStr);
 				 System.out.println("light value:"+ltVal);
 			}
-			if(ltVal > 900){
+			if(ltVal > BaytConstants.NIGHT_LIGHT_START){
 				System.out.println("picture in night mode ");
-				BaytWebSocket.talkArd.sendData("ltons1");
-				Thread.sleep(2000);
+				BaytWebSocket.talkArd.sendData(BaytConstants.LIGHT_ONCMD);
+				Thread.sleep(BaytConstants.NIGHT_LIGHT_ONDELAY);
 				lton = true;
 				piCamera.setExposure(Exposure.NIGHT);
-				piCamera.setISO(800);
+				piCamera.setISO(BaytConstants.NIGHT_ISO);
 				piCamera.setShutter(BaytConstants.NIGHT_SHUTTER_SPEED);
 			}else{
 				System.out.println("picture in auto mode ");
-				BaytWebSocket.talkArd.sendData("ltoffs1");
+				BaytWebSocket.talkArd.sendData(BaytConstants.LIGHT_OFFCMD);
 				piCamera.setExposure(Exposure.AUTO);
 			}
 			piCamera.setAddRawBayer(true);
 			File flPic = piCamera.takeStill(getFileName());
 			 Thread.sleep(_picTimeout);
 			if(lton){
-				BaytWebSocket.talkArd.sendData("ltoffs1");
+				BaytWebSocket.talkArd.sendData(BaytConstants.LIGHT_OFFCMD);
 			}
 			
 	         if(flPic.exists()){

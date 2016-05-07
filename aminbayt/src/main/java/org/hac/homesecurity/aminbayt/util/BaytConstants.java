@@ -19,6 +19,14 @@ public final class BaytConstants {
  //    public final static int RESIZE_VALUE = 500;
      public final static int RESIZE_QUALITY = 1550;//75
      public final static int NIGHT_SHUTTER_SPEED = 250000;
+     public final static int NIGHT_LIGHT_START = 1020;
+     public final static int NIGHT_LIGHT_ONDELAY = 2000;
+     public final static int NIGHT_ISO = 800;
+     
+     public final static String LIGHT_ONCMD = "ltons1";
+	public static final String LIGHT_OFFCMD = "ltoffs1";
+	public static final int PICWIDTH = 1550;
+	public static final int PICHEIGHT = 1163;
      
      public static boolean ACTIVE_SECURITY = false;
   
