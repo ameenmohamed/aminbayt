@@ -58,7 +58,7 @@
 
       <!-- Main jumbotron for a primary marketing message or call to action -->
       <div class="jumbotron">
-        <h2>Ameen Bayt (Secure House) :</h2> <div id="timeStamp"></div>
+        <h2>Ameen Bayt (Secure House) :<IMG HEIGHT=50 WIDTH=50 SRC="img/ardu.png"></A><IMG HEIGHT=50 WIDTH=50 SRC="img/raspi.png"></A></h2> <div id="timeStamp"></div>
         <p>Basic Security system version 1 using Raspberry pi and Arduino . Arduino has all sensors and raspberry pi hosts webapplication and clicks pics.</p>
       </div>
     <!-- end of nav bars  -->
