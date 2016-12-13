@@ -34,5 +34,7 @@ public @Data class BaytConfig implements Serializable{
 	private String imgWidth;
 	private String imgHeight;
 	private boolean activateSecurity;
+	private int picTimeout;
+	private String raspistillPath;
 
 }

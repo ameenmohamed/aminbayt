@@ -1,6 +1,7 @@
 package org.hac.amin.bayt.controllers;
 
 import org.hac.amin.bayt.model.BaytConfig;
+import org.hac.dropbox.ClickPic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,6 +12,9 @@ public class BaytInfo {
 
 	@Autowired
 	BaytConfig baytConfig;
+	
+	@Autowired
+	ClickPic sayCheese;
 	
 	//@RequestMapping(value="/myinfo", method = RequestMethod.GET)
 	public BaytConfig getMyConfig(){
@@ -36,6 +40,12 @@ public class BaytInfo {
 		}
 			
 			return status;
+	}
+	
+	@RequestMapping(value="/apiclick", method = RequestMethod.GET)
+	public String apiClick(){
+		String resp = sayCheese.apiClick();
+		return resp;
 	}
 	
 }
