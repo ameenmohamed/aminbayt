@@ -1,0 +1,4 @@
+SerializationFeature.FAIL_ON_EMPTY_BEANS: false
+logging:
+  level:
+    org.springframework.web: DEBUG 

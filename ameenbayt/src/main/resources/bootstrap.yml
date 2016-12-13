@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: aminbayt
+  cloud:
+    config:
+      fail-fast: true
+      uri: http://localhost:8888
+      username: cfgclient
+      password: '{cipher}f85e5680e52cd4c37aa21462c59917acae8fb1b08c581e6a8f1f999b921d1dcd'
+      enabled: true
