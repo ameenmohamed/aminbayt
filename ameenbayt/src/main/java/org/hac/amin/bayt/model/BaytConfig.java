@@ -23,6 +23,7 @@ public @Data class BaytConfig implements Serializable{
 	
 	private String dateFormat;
 	private String appKey;
+	private String appSecret;
 	private String accessToken;
 	private String dbPicLocation;
 	private String dbVidLocation;

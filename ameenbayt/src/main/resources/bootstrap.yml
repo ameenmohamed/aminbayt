@@ -8,3 +8,8 @@ spring:
       username: cfgclient
       password: '{cipher}f85e5680e52cd4c37aa21462c59917acae8fb1b08c581e6a8f1f999b921d1dcd'
       enabled: true
+
+security:
+  user:
+    name: mananta
+    password: '{cipher}52916e6af390f854b34d336490aef85f4b054eedc35002bc5cfd6a1e146cf802'      
