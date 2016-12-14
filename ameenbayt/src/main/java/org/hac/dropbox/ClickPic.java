@@ -31,7 +31,7 @@ public class ClickPic {
 	@Autowired
 	UploadFile flupload;
 		 
-	 public static void main(String[] args) throws ParseException {
+	 /*public static void main(String[] args) throws ParseException {
 		 ClickPic cpic = new ClickPic();
 		 if(args.length == 0){
 			 System.out.println("running default option click pic");
@@ -43,19 +43,19 @@ public class ClickPic {
 				 cpic.apiClick();
 			 }
 			 else if(commex.equalsIgnoreCase("vid")){
-				 /*if(args.length > 1 && cpic.isNumeric(args[1])){
+				 if(args.length > 1 && cpic.isNumeric(args[1])){
 					 int duration = Integer.parseInt(args[1]);
 					 RecordVideo rv = new RecordVideo(duration);
 					 rv.recVid();
 				 }else{
 					 RecordVideo rv = new RecordVideo();
 					 rv.recVid();
-				 }*/
+				 }
 			 }else{
 				 System.out.println("Invalid Command:"+args[0]);
 			 }
 		 }		 
-	}
+	}*/
 	 
 	 
 	 
