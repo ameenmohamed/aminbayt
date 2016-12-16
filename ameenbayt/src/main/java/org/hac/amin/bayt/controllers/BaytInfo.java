@@ -30,10 +30,10 @@ public class BaytInfo {
 	
 	@RequestMapping(value="/activate", method = RequestMethod.GET)
 	public String activate(){
-		String status="OK";
+		String status="OK:true";
 		if(baytConfig!=null){
 			if(baytConfig.isActivateSecurity()){
-				status="AlreadyActive";
+				status="AlreadyActive:true";
 			}else{
 				baytConfig.setActivateSecurity(true);
 			}
@@ -41,6 +41,15 @@ public class BaytInfo {
 			
 			return status;
 	}
+	
+	@RequestMapping(value="/deactivate", method = RequestMethod.GET)
+	public String deactivativate(){
+		String status="OK:false";
+		baytConfig.setActivateSecurity(false);
+			
+			return status;
+	}
+	
 	
 	@RequestMapping(value="/apiclick", method = RequestMethod.GET)
 	public String apiClick(){
