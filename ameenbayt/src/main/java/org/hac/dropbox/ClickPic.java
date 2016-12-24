@@ -1,3 +1,4 @@
+
 package org.hac.dropbox;
 
 import java.io.BufferedReader;
@@ -64,7 +65,7 @@ public class ClickPic {
 			int ltVal = 0;
 			boolean lton = false;
 			CharSequence seq = "{";
-			if(isLowLight()){
+			if(isLowLight(null)){
 				piCamera.setExposure(Exposure.NIGHT);
 				piCamera.setISO(800);
 				piCamera.setShutter(250000);
@@ -163,13 +164,23 @@ public class ClickPic {
 		}
 		return true;
 	}
-
-	public boolean isLowLight() {
+	
+	private String getCurrentHour(){
 		Date date = new Date();
 		String strDateFormat = "HH";
 		SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
-		int timeValue = Integer.parseInt(sdf.format(date));
-		if (timeValue > 15) {
+		return sdf.format(date);
+		
+	}
+
+	public boolean isLowLight(String hr) {
+		int timeValue =0;
+		if(hr==null){
+			timeValue = Integer.parseInt(getCurrentHour());
+		}else{
+		timeValue = Integer.parseInt(hr);
+		}
+		if (  timeValue > 15 || timeValue < 10 ) {//12-14
 			return true;
 		} else {
 			return false;
