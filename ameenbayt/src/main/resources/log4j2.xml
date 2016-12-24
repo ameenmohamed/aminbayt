@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+				>
+			</PatternLayout>
+		</Console>
+		<RollingRandomAccessFile name="RollingFLAppender"
+			fileName="logs/ameenbayt.log" filePattern="archive/logs/ameenbayt.log.%d{yyyy-MM-dd-hh-mm}.gz">
+			<PatternLayout
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+			<Policies>
+				<SizeBasedTriggeringPolicy size="1000 KB" />
+			</Policies>
+			<DefaultRolloverStrategy max="4" />
+		</RollingRandomAccessFile>
+	<!-- 	<File name="File-Appender" fileName="logs/xmlfilelog.log">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+		</File> -->
+	</Appenders>
+	<Loggers>
+		<AsyncLogger name="org.hac"	level="debug">
+			<AppenderRef ref="RollingFLAppender" />
+		</AsyncLogger>
+		<Root level="debug">
+			<AppenderRef ref="Console-Appender" />
+		</Root>
+	</Loggers>
+</Configuration>

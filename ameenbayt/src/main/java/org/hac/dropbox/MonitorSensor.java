@@ -1,7 +1,9 @@
 package org.hac.dropbox;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 import org.hac.amin.bayt.model.BaytConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.pi4j.io.gpio.PinPullResistance;
 import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
@@ -12,6 +14,8 @@ public class MonitorSensor implements Runnable {
 	ClickPic kachack;
 
 	BaytConfig baytConfig;
+	
+	long  timeNow = System.currentTimeMillis();
 	
 	public MonitorSensor(ClickPic _kachack,BaytConfig _baytConfig) {
 		kachack=_kachack;
@@ -29,8 +33,9 @@ public class MonitorSensor implements Runnable {
 		TestSensor.sensor.addListener(new GpioPinListenerDigital() {           
 		    @Override       
 		    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {        
-
-		        if(event.getState().isHigh()){  
+		    	long justNow = System.currentTimeMillis();
+		        if(event.getState().isHigh() && isPauseTimeElapsed(justNow)){  
+		        	
 		        	if(baytConfig.isActivateSecurity()){
 		        		for (int i = 0; i < 12; i++) {
 		        			kachack.apiClick();
@@ -56,6 +61,15 @@ public class MonitorSensor implements Runnable {
 		    System.out.println(e.getMessage());     
 		}
 
+	}
+	
+	public boolean isPauseTimeElapsed(long t2){
+		long tmDiff = t2-timeNow;
+		long diff = TimeUnit.MILLISECONDS.toMinutes(tmDiff);
+		if(diff >= baytConfig.getMotionPauseTime()){ 
+			timeNow=System.currentTimeMillis();//reset time at elapsed time
+			return true;
+		}else return false;
 	}
 
 }
