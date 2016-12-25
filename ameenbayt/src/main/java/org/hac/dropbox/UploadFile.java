@@ -39,7 +39,7 @@ public class UploadFile {
 	        	for(int i=0;i<3;i++){
 	        		try {	
 	        			if(!inputFile.exists()){
-	        			Thread.sleep(500);
+	        			Thread.sleep(50);
 	        			}else{break;}
 					} catch (InterruptedException e) {logger.error("IOException"+e.getMessage());}
 	        	}

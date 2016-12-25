@@ -17,6 +17,7 @@ public class MonitorSensor implements Runnable {
 	 private static final Logger logger = LogManager.getLogger(MonitorSensor.class);
 	 SimpleDateFormat format ;
 
+	boolean activateAlarm=false;
 
 	ClickPic kachack;
 
@@ -43,10 +44,11 @@ public class MonitorSensor implements Runnable {
 		    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {        
 		    	long justNow = System.currentTimeMillis();
 		    	boolean isPauseTimeElapsed = isPauseTimeElapsed(justNow);
-		        if(event.getState().isHigh() && isPauseTimeElapsed){  
-		        	 logger.debug("Motion Detected! time:"+format.format(new Date()));
-		        	if(baytConfig.isActivateSecurity()){//if security is active click pics as long as motion is detected
-		        		for (int i = 0; i < 12; i++) {
+		       
+		    	if(event.getState().isHigh() ){  
+		        	logger.debug("Motion Detected! time:"+format.format(new Date()));
+		        	if(baytConfig.isActivateSecurity() ){//if security is active click pics as long as motion is detected
+		        		for (int i = 0; i < baytConfig.getBurstCount(); i++) {
 		        			if(!"test".equalsIgnoreCase(baytConfig.getSystemState())){ // clicl pics if not in test mode
 		        			kachack.apiClick();}
 		        			else{
@@ -65,7 +67,7 @@ public class MonitorSensor implements Runnable {
 		try {           
 		    // keep program running until user aborts       
 		    for (;;) {      
-		        Thread.sleep(500);  
+		        Thread.sleep(50);  
 		    }       
 		}           
 		catch (final Exception e) {         
@@ -77,7 +79,12 @@ public class MonitorSensor implements Runnable {
 	public boolean isPauseTimeElapsed(long t2){
 		long tmDiff = t2-timeNow;
 		long diff = TimeUnit.MILLISECONDS.toMinutes(tmDiff);
-		if(diff >= baytConfig.getMotionPauseTime()){ 
+		if(!activateAlarm){
+			timeNow=System.currentTimeMillis();//will be set to true only once 
+			activateAlarm=true;
+			return true;
+		}
+		else if(diff >= baytConfig.getMotionPauseTime()){ 
 			timeNow=System.currentTimeMillis();//reset time at elapsed time
 			return true;
 		}else return false;

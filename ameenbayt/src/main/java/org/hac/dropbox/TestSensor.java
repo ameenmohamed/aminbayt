@@ -26,16 +26,13 @@ public class TestSensor {
 	@Autowired
 	BaytConfig baytConfig;
 	
-	static  GpioPinDigitalInput sensor;
-	static  GpioController gpioSensor;
+	final static GpioController gpioSensor = GpioFactory.getInstance(); 
+	final static  GpioPinDigitalInput sensor = gpioSensor.provisionDigitalInputPin(RaspiPin.GPIO_04, PinPullResistance.PULL_DOWN);
+	
 	
 	@PostConstruct
 	public void test(){
-		
-		if("test".equalsIgnoreCase(baytConfig.getSystemState())){
-		 gpioSensor = GpioFactory.getInstance(); 
-		 sensor = gpioSensor.provisionDigitalInputPin(RaspiPin.GPIO_04, PinPullResistance.PULL_DOWN);
-		}
+	
 		MonitorSensor mssor = new MonitorSensor(kachack,baytConfig);
 		Thread thread1 = new Thread(mssor, "MotionSensorThread");
         thread1.start();

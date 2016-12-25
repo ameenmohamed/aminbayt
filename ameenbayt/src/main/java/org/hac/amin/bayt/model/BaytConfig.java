@@ -39,5 +39,7 @@ public @Data class BaytConfig implements Serializable{
 	private int motionPauseTime ;
 	private String systemState;
 	private String timeFormat;
+	private int burstCount;
+	private int imgClickQuality;
 
 }

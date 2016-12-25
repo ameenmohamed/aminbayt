@@ -62,7 +62,7 @@ public class ClickPic {
 			piCamera.setTimeout(2);
 			piCamera.setDateTimeOn();
 			piCamera.setFullPreviewOff();
-			piCamera.setQuality(Integer.parseInt(baytConfig.getImgResizeValue()));
+			piCamera.setQuality(baytConfig.getImgClickQuality());
 			// Add Raw Bayer data to image files created by Camera.
 
 			int ltVal = 0;
@@ -84,9 +84,9 @@ public class ClickPic {
 			if (flPic.exists()) {
 				flupload.uploadToDropbox(flPic.getAbsolutePath());
 				flNameLoc = "File:" + flPic.getAbsolutePath() + flPic.getName() + "Uploaded.";
-				logger.debug(flNameLoc);				
+			//	logger.debug(flNameLoc);				
 				flPic.delete();
-				logger.debug("del :" + flPic.getAbsolutePath());
+			//	logger.debug("del :" + flPic.getAbsolutePath());
 			} else {
 				flNameLoc = "File:" + flPic.getAbsolutePath() + " Does not exist.";
 				logger.debug(flNameLoc);				
