@@ -1,8 +1,11 @@
 package org.hac.dropbox;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
 
 import com.pi4j.io.gpio.PinPullResistance;
@@ -10,6 +13,10 @@ import com.pi4j.io.gpio.event.GpioPinDigitalStateChangeEvent;
 import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class MonitorSensor implements Runnable {
+	
+	 private static final Logger logger = LogManager.getLogger(MonitorSensor.class);
+	 SimpleDateFormat format ;
+
 
 	ClickPic kachack;
 
@@ -20,6 +27,7 @@ public class MonitorSensor implements Runnable {
 	public MonitorSensor(ClickPic _kachack,BaytConfig _baytConfig) {
 		kachack=_kachack;
 		baytConfig=_baytConfig;
+		format = new SimpleDateFormat(baytConfig.getTimeFormat());
 	}
 	
 
@@ -34,19 +42,22 @@ public class MonitorSensor implements Runnable {
 		    @Override       
 		    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {        
 		    	long justNow = System.currentTimeMillis();
-		        if(event.getState().isHigh() && isPauseTimeElapsed(justNow)){  
-		        	
-		        	if(baytConfig.isActivateSecurity()){
+		    	boolean isPauseTimeElapsed = isPauseTimeElapsed(justNow);
+		        if(event.getState().isHigh() && isPauseTimeElapsed){  
+		        	 logger.debug("Motion Detected! time:"+format.format(new Date()));
+		        	if(baytConfig.isActivateSecurity()){//if security is active click pics as long as motion is detected
 		        		for (int i = 0; i < 12; i++) {
-		        			kachack.apiClick();
-						}
-		        		
-		        	}
-		        	
-		            System.out.println("Motion Detected!"); 		           
+		        			if(!"test".equalsIgnoreCase(baytConfig.getSystemState())){ // clicl pics if not in test mode
+		        			kachack.apiClick();}
+		        			else{
+		        				logger.debug("test mode click count:"+i +" time:"+format.format(new Date()));
+		        			}		        		
+						}		        		
+		        	}		        	
+		            		           
 		        }   
-		        if(event.getState().isLow()){   
-		            System.out.println("All is quiet...");		           
+		        else if(event.getState().isLow()){   
+		        	//logger.debug("All is quiet... isPauseTimeElapsed:"+isPauseTimeElapsed);		           
 		        }   
 		    }       
 		});         
@@ -58,7 +69,7 @@ public class MonitorSensor implements Runnable {
 		    }       
 		}           
 		catch (final Exception e) {         
-		    System.out.println(e.getMessage());     
+			logger.error(e.getMessage());     
 		}
 
 	}

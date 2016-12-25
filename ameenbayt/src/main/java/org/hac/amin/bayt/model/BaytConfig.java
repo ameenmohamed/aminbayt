@@ -37,5 +37,7 @@ public @Data class BaytConfig implements Serializable{
 	private int picTimeout;
 	private String raspistillPath;
 	private int motionPauseTime ;
+	private String systemState;
+	private String timeFormat;
 
 }

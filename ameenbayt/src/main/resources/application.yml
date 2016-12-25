@@ -4,4 +4,4 @@ logging:
     org.springframework.web: DEBUG 
 spring:
   jackson:
-    serialization.indent_output: true    
+    serialization.indent_output: true 

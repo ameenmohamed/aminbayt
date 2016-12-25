@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
 public class ClickPic {
 
 	private static final String flExt = ".jpg";
+	private static final Logger logger = LogManager.getLogger(ClickPic.class);
 
 	@Autowired
 	BaytConfig baytConfig;
@@ -69,34 +72,38 @@ public class ClickPic {
 				piCamera.setExposure(Exposure.NIGHT);
 				piCamera.setISO(800);
 				piCamera.setShutter(250000);
+				logger.debug("Camera Set to night mode");
 			}else{
 				piCamera.setExposure(Exposure.AUTO);
+				logger.debug("Camera Set to Auto mode");
 			}
 			piCamera.setAddRawBayer(true);
 			File flPic = piCamera.takeStill(getFileName());
-			Thread.sleep(baytConfig.getPicTimeout());
+			//Thread.sleep(baytConfig.getPicTimeout());
 
 			if (flPic.exists()) {
 				flupload.uploadToDropbox(flPic.getAbsolutePath());
 				flNameLoc = "File:" + flPic.getAbsolutePath() + flPic.getName() + "Uploaded.";
-				System.out.println("del :" + flPic.getAbsolutePath());
+				logger.debug(flNameLoc);				
 				flPic.delete();
+				logger.debug("del :" + flPic.getAbsolutePath());
 			} else {
 				flNameLoc = "File:" + flPic.getAbsolutePath() + " Does not exist.";
+				logger.debug(flNameLoc);				
 			}
 
 		} catch (FailedToRunRaspistillException e) {
 
-			e.printStackTrace();
+			logger.debug("FailedToRunRaspistillException"+e.getMessage());				
 		} catch (IOException e) {
 
-			e.printStackTrace();
+			logger.debug("IOException"+e.getMessage());
 		} catch (InterruptedException e) {
 
-			e.printStackTrace();
+			logger.debug("InterruptedException"+e.getMessage());
 		} catch (ParseException e) {
 
-			e.printStackTrace();
+			logger.debug("ParseException"+e.getMessage());
 		}
 		return flNameLoc;
 	}

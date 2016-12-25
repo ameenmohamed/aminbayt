@@ -9,6 +9,8 @@ import java.io.*;
 import java.nio.file.Path;
 import java.util.Locale;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
 import org.hac.amin.bayt.model.DropBoxConfig;
 
@@ -17,6 +19,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class UploadFile {
+	
+	 private static final Logger logger = LogManager.getLogger(UploadFile.class);
 	
 	@Autowired
 	ImageResizer imgrsz;
@@ -37,9 +41,9 @@ public class UploadFile {
 	        			if(!inputFile.exists()){
 	        			Thread.sleep(500);
 	        			}else{break;}
-					} catch (InterruptedException e) {e.printStackTrace();	}
+					} catch (InterruptedException e) {logger.error("IOException"+e.getMessage());}
 	        	}
-	        	System.out.println("File Does not exist :"+inputFile.getAbsolutePath());
+	        	logger.debug("Upload File in req Does not exist :"+inputFile.getAbsolutePath());
 	        	return;
 	        }
 	        try {
@@ -62,17 +66,13 @@ public class UploadFile {
 	        		
 	        		
 	            DbxEntry.File uploadedFile = dbxCfg.client.uploadFile(baytConfig.getDbPicLocation()+File.separator+inputFile.getName(), DbxWriteMode.add(), inputStream.available(), inputStream);
-	            System.out.println("Uploaded: " + uploadedFile.toString());
-	        		}else {System.out.println("Could not setup dropbox client ..");}
+	            logger.debug("Uploaded: " + uploadedFile.toString());
+	        		}else {logger.debug("Could not setup dropbox client ..");}
 	            inputStream.close();
 	        } catch (DbxException e) {
-				
-
-				e.printStackTrace();
+	        	logger.error("DbxException"+e.getMessage());
 			} catch (IOException e) {
-				
-
-				e.printStackTrace();
+				logger.error("IOException"+e.getMessage());
 			} 
 	        
 	}
