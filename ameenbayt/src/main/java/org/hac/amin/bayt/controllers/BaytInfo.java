@@ -2,10 +2,14 @@ package org.hac.amin.bayt.controllers;
 
 import org.hac.amin.bayt.model.BaytConfig;
 import org.hac.dropbox.ClickPic;
+import org.hac.dropbox.TestSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.pi4j.io.gpio.PinPullResistance;
+import com.pi4j.io.gpio.RaspiPin;
 
 @RestController
 public class BaytInfo {
@@ -55,6 +59,14 @@ public class BaytInfo {
 	public String apiClick(){
 		String resp = sayCheese.apiClick();
 		return resp;
+	}
+	
+	
+	@RequestMapping(value="/pinstate", method = RequestMethod.GET)
+	public String gpioState(){
+		String msg = "isPullDown:"+TestSensor.sensor.isPullResistance(PinPullResistance.PULL_DOWN);
+	     msg += " pin val :"+TestSensor.sensor.getState().getValue();
+	     return msg;
 	}
 	
 }

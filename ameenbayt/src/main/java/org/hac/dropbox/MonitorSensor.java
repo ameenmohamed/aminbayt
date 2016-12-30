@@ -15,38 +15,40 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 public class MonitorSensor implements Runnable {
 	
 	 private static final Logger logger = LogManager.getLogger(MonitorSensor.class);
-	 SimpleDateFormat format ;
-
+	 
+	SimpleDateFormat format ;
 	boolean activateAlarm=false;
+	long  timeNow = System.currentTimeMillis();
 
 	ClickPic kachack;
 
 	BaytConfig baytConfig;
 	
-	long  timeNow = System.currentTimeMillis();
+
 	
 	public MonitorSensor(ClickPic _kachack,BaytConfig _baytConfig) {
 		kachack=_kachack;
 		baytConfig=_baytConfig;
 		format = new SimpleDateFormat(baytConfig.getTimeFormat());
+		registerListener();
 	}
 	
-
-
-	@Override
-	public void run() {
+	public void registerListener(){
 		logger.debug("<--Pi4J--> GPIO Listen Example ... started.");
 		logger.debug("ispulldown "+TestSensor.sensor.isPullResistance(PinPullResistance.PULL_DOWN));
+		
 		
 		// create and register gpio pin listener            
 		TestSensor.sensor.addListener(new GpioPinListenerDigital() {           
 		    @Override       
 		    public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {        
+		    	logger.debug(" --> GPIO PIN STATE CHANGE: time:"+format.format(new Date()) + " "+event.getPin() + " = " + event.getState());
 		    	long justNow = System.currentTimeMillis();
 		    	boolean isPauseTimeElapsed = isPauseTimeElapsed(justNow);
 		       
 		    	if(event.getState().isHigh() ){  
-		        	logger.debug("Motion Detected! time:"+format.format(new Date()));
+		    		
+		        	//logger.debug("Motion Detected! time:"+format.format(new Date()));
 		        	if(baytConfig.isActivateSecurity() ){//if security is active click pics as long as motion is detected
 		        		for (int i = 0; i < baytConfig.getBurstCount(); i++) {
 		        			if(!"test".equalsIgnoreCase(baytConfig.getSystemState())){ // clicl pics if not in test mode
@@ -58,11 +60,17 @@ public class MonitorSensor implements Runnable {
 		        	}		        	
 		            		           
 		        }   
-		        else if(event.getState().isLow()){   
-		        	//logger.debug("All is quiet... isPauseTimeElapsed:"+isPauseTimeElapsed);		           
-		        }   
+		       /* else if(event.getState().isLow()){   
+		        	//logger.debug("All is quiet... ");		           
+		        }   */
 		    }       
-		});         
+		});      
+	}
+	
+
+	@Override
+	public void run() {
+		   
 
 		try {           
 		    // keep program running until user aborts       

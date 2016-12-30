@@ -4,7 +4,7 @@ spring:
   cloud:
     config:
       fail-fast: false
-      uri: http://192.168.1.1:8888
+      uri: http://ec2-54-194-204-222.eu-west-1.compute.amazonaws.com:8888
       username: cfgclient
       password: '{cipher}f85e5680e52cd4c37aa21462c59917acae8fb1b08c581e6a8f1f999b921d1dcd'
       enabled: true
