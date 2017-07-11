@@ -6,10 +6,27 @@ spring:
       fail-fast: false
       uri: http://ec2-54-194-204-222.eu-west-1.compute.amazonaws.com:8888
       username: cfgclient
-      password: '{cipher}f85e5680e52cd4c37aa21462c59917acae8fb1b08c581e6a8f1f999b921d1dcd'
+      password: Password1
       enabled: true
 
 security:
   user:
     name: mananta
-    password: '{cipher}52916e6af390f854b34d336490aef85f4b054eedc35002bc5cfd6a1e146cf802'      
+    password: Fatima1140 
+---
+spring:
+  profiles: tvroom
+ameenbayt:
+  baytConfig: 
+    dbPicLocation: "/pi/shafipi/"
+    dbVidLocation: "/pi/shafipi/video/"
+---
+spring:
+  profiles: shafiroom
+ameenbayt: 
+  baytConfig: 
+    dbPicLocation: "/pi/ovaispi/"
+    dbVidLocation: "/pi/ovaispi/video/"
+---
+spring:
+  profiles: bedroom         

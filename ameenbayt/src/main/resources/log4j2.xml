@@ -16,7 +16,7 @@
 			<Policies>
 				<SizeBasedTriggeringPolicy size="1000 KB" />
 			</Policies>
-			<DefaultRolloverStrategy max="4" />
+			<DefaultRolloverStrategy max="1" />
 		</RollingRandomAccessFile>
 	<!-- 	<File name="File-Appender" fileName="logs/xmlfilelog.log">
 			<PatternLayout>
@@ -31,7 +31,7 @@
 			<AppenderRef ref="RollingFLAppender" />
 		</AsyncLogger>
 		<Root level="debug">
-			<AppenderRef ref="Console-Appender" />
+			<AppenderRef ref="RollingFLAppender" />
 		</Root>
 	</Loggers>
 </Configuration>

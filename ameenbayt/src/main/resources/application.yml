@@ -5,3 +5,31 @@ logging:
 spring:
   jackson:
     serialization.indent_output: true 
+
+ameenbayt:
+  baytConfig: 
+    dateFormat: MM-dd-yyyy hh:mm:ss
+    timeFormat: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
+    appKey: qtpldsehgstmb4a
+    accessToken: 0oMJPCilPk8AAAAAAAADImczzV28trB_SnSaCO5xxQkZbE_uOa2yE9FE5WKiNBOq
+    appSecret: recovnojfvdy4c9
+    dbPicLocation: /pi/shafipi/
+    dbVidLocation: /pi/shafipi/video/
+    raspiVidpath: /home/pi/mmal/vid/
+    imgResizeValue: 1550
+    imgClickQuality: 20
+    raspistillPath: "/home/pi/mmal/pic"
+    lightOnCmdS1: lightOnCmdS1
+    lightOffCmdS1: lightOffCmdS1
+    imgWidth: 1550
+    imgHeight: 1163
+    activateSecurity: false
+    picTimeout: 3000
+    motionPauseTime: 2
+    systemState: prod
+    burstCount: 5
+    
+
+
+    
+      

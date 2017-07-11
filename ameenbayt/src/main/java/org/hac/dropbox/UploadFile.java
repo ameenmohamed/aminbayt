@@ -66,7 +66,7 @@ public class UploadFile {
 	        		
 	        		
 	            DbxEntry.File uploadedFile = dbxCfg.client.uploadFile(baytConfig.getDbPicLocation()+File.separator+inputFile.getName(), DbxWriteMode.add(), inputStream.available(), inputStream);
-	            logger.debug("Uploaded: " + uploadedFile.toString());
+	            logger.info("Uploaded: " + uploadedFile.toString());
 	        		}else {logger.debug("Could not setup dropbox client ..");}
 	            inputStream.close();
 	        } catch (DbxException e) {

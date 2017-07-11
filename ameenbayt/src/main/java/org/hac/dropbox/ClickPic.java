@@ -89,7 +89,7 @@ public class ClickPic {
 			//	logger.debug("del :" + flPic.getAbsolutePath());
 			} else {
 				flNameLoc = "File:" + flPic.getAbsolutePath() + " Does not exist.";
-				logger.debug(flNameLoc);				
+				logger.info(flNameLoc);				
 			}
 
 		} catch (FailedToRunRaspistillException e) {
@@ -187,7 +187,7 @@ public class ClickPic {
 		}else{
 		timeValue = Integer.parseInt(hr);
 		}
-		if (  timeValue > 15 || timeValue < 10 ) {//12-14
+		if (  timeValue > 20 || timeValue < 04 ) {//12-14
 			return true;
 		} else {
 			return false;

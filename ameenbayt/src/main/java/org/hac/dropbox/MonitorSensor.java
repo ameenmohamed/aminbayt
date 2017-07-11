@@ -34,8 +34,8 @@ public class MonitorSensor implements Runnable {
 	}
 	
 	public void registerListener(){
-		logger.debug("<--Pi4J--> GPIO Listen Example ... started.");
-		logger.debug("ispulldown "+TestSensor.sensor.isPullResistance(PinPullResistance.PULL_DOWN));
+		logger.info("<--Pi4J--> GPIO Listen Example ... started.");
+		logger.debug("ispulldown "+ TestSensor.sensor.isPullResistance(PinPullResistance.PULL_DOWN));
 		
 		
 		// create and register gpio pin listener            

@@ -4,3 +4,5 @@
 /.project
 /.mvn/
 /.settings/
+/.apt_generated/
+/logs/
