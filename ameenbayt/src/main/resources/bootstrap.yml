@@ -1,13 +1,13 @@
 spring:
   application:
-    name: aminbayt
-  cloud:
-    config:
-      fail-fast: false
-      uri: http://ec2-54-194-204-222.eu-west-1.compute.amazonaws.com:8888
-      username: cfgclient
-      password: Password1
-      enabled: true
+    name: ameenbayt
+#  cloud:
+#    config:
+#      fail-fast: false
+#      uri: http://ec2-54-194-204-222.eu-west-1.compute.amazonaws.com:8888
+#      username: cfgclient
+#      password: Password1
+#      enabled: true
 
 security:
   user:

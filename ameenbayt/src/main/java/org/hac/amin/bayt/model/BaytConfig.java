@@ -5,7 +5,7 @@ import java.io.Serializable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jackson.JsonComponent;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
+//import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -15,7 +15,7 @@ import lombok.Data;
 
 @Component
 @EnableConfigurationProperties
-@RefreshScope
+//@RefreshScope
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @ConfigurationProperties(prefix = "ameenbayt.baytConfig")
 @JsonComponent
