@@ -30,6 +30,8 @@ ameenbayt:
     motionPauseTime: 2
     systemState: prod
     burstCount: 5
+    s3root: "ameenbayt"
+    s3fileloc: "tvroom"
     
 
 

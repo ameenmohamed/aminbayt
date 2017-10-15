@@ -20,7 +20,7 @@ public class DropBoxConfig {
 	
 	   public static DbxClientV1 client = null;
 	     
-	   @PostConstruct
+	 //  @PostConstruct wll never be instantiated as v1 api is dicontinued using s3 instead 
 	     public  void setupDropBox(){
 	    	 if(client == null){
 	    	 DbxAppInfo appInfo = new DbxAppInfo(baytConfig.getAppKey(), baytConfig.getAppSecret());

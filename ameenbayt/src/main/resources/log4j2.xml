@@ -10,7 +10,7 @@
 			</PatternLayout>
 		</Console>
 		<RollingRandomAccessFile name="RollingFLAppender"
-			fileName="logs/ameenbayt.log" filePattern="archive/logs/ameenbayt.log.%d{yyyy-MM-dd-hh-mm}.gz">
+			fileName="${HOME}/logs/ameenbayt.log" filePattern="${HOME}/archive/logs/ameenbayt.log.%d{yyyy-MM-dd-hh-mm}.gz">
 			<PatternLayout
 				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
 			<Policies>
@@ -18,20 +18,13 @@
 			</Policies>
 			<DefaultRolloverStrategy max="1" />
 		</RollingRandomAccessFile>
-	<!-- 	<File name="File-Appender" fileName="logs/xmlfilelog.log">
-			<PatternLayout>
-				<pattern>
-					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
-				</pattern>
-			</PatternLayout>
-		</File> -->
+	
 	</Appenders>
 	<Loggers>
-		<AsyncLogger name="org.hac"	level="debug">
-			<AppenderRef ref="RollingFLAppender" />
-		</AsyncLogger>
+	
 		<Root level="debug">
 			<AppenderRef ref="RollingFLAppender" />
+			<AppenderRef ref="Console-Appender" />
 		</Root>
 	</Loggers>
 </Configuration>

@@ -12,7 +12,7 @@ spring:
 security:
   user:
     name: mananta
-    password: Fatima1140 
+    password: Fatima1140
 ---
 spring:
   profiles: tvroom
@@ -20,6 +20,7 @@ ameenbayt:
   baytConfig: 
     dbPicLocation: "/pi/shafipi/"
     dbVidLocation: "/pi/shafipi/video/"
+    s3fileloc: "tvroom"
 ---
 spring:
   profiles: shafiroom
@@ -27,6 +28,7 @@ ameenbayt:
   baytConfig: 
     dbPicLocation: "/pi/ovaispi/"
     dbVidLocation: "/pi/ovaispi/video/"
+    s3fileloc: "pcroom"
 ---
 spring:
   profiles: bedroom         

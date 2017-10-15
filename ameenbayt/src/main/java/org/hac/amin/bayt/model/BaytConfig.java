@@ -41,5 +41,7 @@ public @Data class BaytConfig implements Serializable{
 	private String timeFormat;
 	private int burstCount;
 	private int imgClickQuality;
+	private String s3root;
+	private String s3fileloc;
 
 }
