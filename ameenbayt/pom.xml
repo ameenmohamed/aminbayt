@@ -32,6 +32,7 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -43,17 +44,7 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
+		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-undertow</artifactId>
@@ -90,10 +81,10 @@
 
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-security</artifactId> 
 			</dependency> -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-crypto</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.dropbox.core</groupId>
@@ -144,15 +135,13 @@
 			<version>1.11.213</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>1.16</version>
+		</dependency>
 
-		<!-- <dependency> <groupId>software.amazon.awssdk</groupId> <artifactId>s3</artifactId> 
-			</dependency> -->
-
-		<!-- <dependency> <groupId>com.amazonaws</groupId> <artifactId>aws-iot-device-sdk-java</artifactId> 
-			<version>1.1.0</version> </dependency> <dependency> <groupId>com.amazonaws</groupId> 
-			<artifactId>aws-java-sdk-sns</artifactId> <version>1.11.66</version> </dependency> -->
-
-
+	
 	</dependencies>
 
 	<!-- <dependencyManagement> <dependencies> <dependency> <groupId>org.springframework.cloud</groupId> 
@@ -168,6 +157,7 @@
 			<!-- <dependency> <groupId>software.amazon.awssdk</groupId> <artifactId>bom</artifactId> 
 				<version>2.0.0-preview-4</version> <type>pom</type> <scope>import</scope> 
 				</dependency> -->
+
 		</dependencies>
 	</dependencyManagement>
 

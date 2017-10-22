@@ -5,17 +5,15 @@ import java.io.Serializable;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.boot.jackson.JsonComponent;
-//import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 
 import lombok.Data;
 
 @Component
-@EnableConfigurationProperties
-//@RefreshScope
 @JsonAutoDetect(fieldVisibility = Visibility.ANY)
 @ConfigurationProperties(prefix = "ameenbayt.baytConfig")
 @JsonComponent
@@ -43,5 +41,7 @@ public @Data class BaytConfig implements Serializable{
 	private int imgClickQuality;
 	private String s3root;
 	private String s3fileloc;
+	private String awsakId;
+	private String awsseckey;
 
 }

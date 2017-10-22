@@ -1,5 +1,5 @@
 
-package org.hac.dropbox;
+package org.hac.amin.bayt.util.pi;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -10,13 +10,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
-
+import org.hac.amin.bayt.util.Click;
+import org.hac.dropbox.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.hopding.jrpicam.RPiCamera;
@@ -24,7 +25,8 @@ import com.hopding.jrpicam.enums.Exposure;
 import com.hopding.jrpicam.exceptions.FailedToRunRaspistillException;
 
 @Component
-public class ClickPic {
+@Profile("!local")
+public class ClickPic implements Click{
 
 	private static final String flExt = ".jpg";
 	private static final Logger logger = LogManager.getLogger(ClickPic.class);
@@ -152,7 +154,7 @@ public class ClickPic {
 		return null;
 	}
 
-	public String getFileName() throws ParseException {
+	private String getFileName() throws ParseException {
 		Date now = new Date();
 		String flName = "";
 
@@ -164,7 +166,7 @@ public class ClickPic {
 		return flName + flExt;
 	}
 
-	public boolean isNumeric(String str) {
+	private boolean isNumeric(String str) {
 		for (char c : str.toCharArray()) {
 			if (!Character.isDigit(c))
 				return false;
@@ -180,7 +182,7 @@ public class ClickPic {
 		
 	}
 
-	public boolean isLowLight(String hr) {
+	private boolean isLowLight(String hr) {
 		int timeValue =0;
 		if(hr==null){
 			timeValue = Integer.parseInt(getCurrentHour());

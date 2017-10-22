@@ -1,18 +1,6 @@
 spring:
   application:
     name: ameenbayt
-#  cloud:
-#    config:
-#      fail-fast: false
-#      uri: http://ec2-54-194-204-222.eu-west-1.compute.amazonaws.com:8888
-#      username: cfgclient
-#      password: Password1
-#      enabled: true
-
-security:
-  user:
-    name: mananta
-    password: Fatima1140
 ---
 spring:
   profiles: tvroom
@@ -31,4 +19,13 @@ ameenbayt:
     s3fileloc: "pcroom"
 ---
 spring:
-  profiles: bedroom         
+  profiles: bedroom
+---
+spring:
+  profiles: local
+HOME: "E:/root/git/aminbayt/ameenbayt/target"
+---
+spring:
+  profiles: pi
+HOME: "/home/pi/amdata/logs"
+  

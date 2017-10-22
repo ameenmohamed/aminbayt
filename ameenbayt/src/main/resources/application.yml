@@ -6,8 +6,7 @@ logging:
     org.springframework.web: DEBUG 
 spring:
   jackson:
-    serialization.indent_output: true 
-
+    serialization.indent_output: true
 ameenbayt:
   baytConfig: 
     dateFormat: MM-dd-yyyy hh:mm:ss
@@ -32,8 +31,5 @@ ameenbayt:
     burstCount: 5
     s3root: "ameenbayt"
     s3fileloc: "tvroom"
-    
-
-
-    
-      
+    awsakId: ENC(SYUbcrr6/5UYdaVOnlAs7mFgU5gBpeC5kUiqDjipQZk=)
+    awsseckey: ENC(5UJ2dWVomEJrlmjbwq/eLSmCTBVIrJGv6MM+KILJBio612Q5aKzyAmCOifajUE1loZXycQM/whI=)

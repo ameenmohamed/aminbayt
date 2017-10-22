@@ -2,9 +2,12 @@ package org.hac.amin.bayt.model;
 
 import java.io.IOException;
 
+import javax.annotation.PostConstruct;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -25,20 +28,27 @@ public class S3WriteComponent {
 	
 	//AWSCredentials credentials = new ProfileCredentialsProvider("default").getCredentials();
 	
-	AWSCredentials credentials = new BasicAWSCredentials("AKIAIJCXWPZFCYBPSYWQ", "/MPLk5x4JrtRQUkzNE0EgB6bF8NxHfCvHUDqtVyS");
+	AWSCredentials credentials ;
 	AmazonS3 s3client = new AmazonS3Client(credentials); 
 //	AmazonS3 s3client = AmazonS3ClientBuilder.defaultClient();
 	
 	@Autowired
 	BaytConfig baytConfig;
 	
+	
 	private static final String SUFFIX = "/";
 	
-	public S3WriteComponent() {
+	@PostConstruct
+	public void S3Init() {
+		System.out.println("initializing s3");
+		System.out.println(baytConfig.getAppKey()+"  secret :"+baytConfig.getAppSecret());
+	
+		//System.out.println(baytConfig.getAppKey()+"  bayinfo secret :"+baytConfig.getAppSecret());
 		
+		credentials = new BasicAWSCredentials(baytConfig.getAppKey(), baytConfig.getAppSecret());
 
 		// s3 = S3Client.builder().credentialsProvider(new ProfileCredentialsProvider()).region(region).build();
-		 logger.info("s3 Instantiated ****************************************");
+		 logger.info("s3 Instantiated ****************************************"+credentials.hashCode());
 	}
 	
 	

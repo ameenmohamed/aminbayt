@@ -1,6 +1,6 @@
 package org.hac.amin.bayt;
 
-import org.hac.dropbox.ClickPic;
+import org.hac.amin.bayt.util.pi.ClickPic;
 
 public class TestLowLight {
 	
