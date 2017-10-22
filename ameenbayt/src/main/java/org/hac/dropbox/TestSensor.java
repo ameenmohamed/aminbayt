@@ -9,7 +9,9 @@ import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
+import org.hac.amin.bayt.util.pi.ClickPic;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +24,7 @@ import com.pi4j.io.gpio.RaspiPin;
 
 
 @Component
+@Profile("!local")
 public class TestSensor {
 	
 	private static final Logger logger = LogManager.getLogger(TestSensor.class);

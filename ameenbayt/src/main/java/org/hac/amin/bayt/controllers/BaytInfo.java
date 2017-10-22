@@ -1,7 +1,7 @@
 package org.hac.amin.bayt.controllers;
 
 import org.hac.amin.bayt.model.BaytConfig;
-import org.hac.dropbox.ClickPic;
+import org.hac.amin.bayt.util.Click;
 import org.hac.dropbox.TestSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pi4j.io.gpio.PinPullResistance;
-import com.pi4j.io.gpio.RaspiPin;
 
 @RestController
 public class BaytInfo {
@@ -18,7 +17,7 @@ public class BaytInfo {
 	BaytConfig baytConfig;
 	
 	@Autowired
-	ClickPic sayCheese;
+	Click sayCheese;
 	
 	//@RequestMapping(value="/myinfo", method = RequestMethod.GET)
 	public BaytConfig getMyConfig(){

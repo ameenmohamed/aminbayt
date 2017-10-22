@@ -1,21 +1,18 @@
 package org.hac.dropbox;
-import com.dropbox.core.*;
-import com.dropbox.core.v1.DbxClientV1;
-import com.dropbox.core.v1.DbxEntry;
-import com.dropbox.core.v1.DbxWriteMode;
-import com.dropbox.core.DbxException;
-
-import java.io.*;
-import java.nio.file.Path;
-import java.util.Locale;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
-import org.hac.amin.bayt.model.DropBoxConfig;
-
+import org.hac.amin.bayt.model.S3WriteComponent;
+import org.hac.amin.bayt.model.WriteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.dropbox.core.DbxException;
 
 @Component
 public class UploadFile {
@@ -28,8 +25,11 @@ public class UploadFile {
 	@Autowired
 	BaytConfig baytConfig;
 	
+	/*@Autowired
+	DropBoxConfig dbxCfg;*/
+	
 	@Autowired
-	DropBoxConfig dbxCfg;
+	S3WriteComponent s3Comp;
 	
 	public  void uploadToDropbox(String flLoc) {
 		
@@ -64,14 +64,15 @@ public class UploadFile {
 	        	}
 	        	if(inputStream !=null){
 	        		
+	        		WriteRequest writeReq = new WriteRequest(inputFile.getName(),inputStream);
 	        		
-	            DbxEntry.File uploadedFile = dbxCfg.client.uploadFile(baytConfig.getDbPicLocation()+File.separator+inputFile.getName(), DbxWriteMode.add(), inputStream.available(), inputStream);
-	            logger.info("Uploaded: " + uploadedFile.toString());
-	        		}else {logger.debug("Could not setup dropbox client ..");}
+	        		String fileName = s3Comp.write(writeReq);
+	        		
+	        //    DbxEntry.File uploadedFile = dbxCfg.client.uploadFile(baytConfig.getDbPicLocation()+File.separator+inputFile.getName(), DbxWriteMode.add(), inputStream.available(), inputStream);
+	            logger.info("Uploaded: " + fileName);
+	        		}else {logger.debug("Could not setup s3 client ..");}
 	            inputStream.close();
-	        } catch (DbxException e) {
-	        	logger.error("DbxException"+e.getMessage());
-			} catch (IOException e) {
+	        }  catch (IOException e) {
 				logger.error("IOException"+e.getMessage());
 			} 
 	        
