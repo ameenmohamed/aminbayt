@@ -1,4 +1,4 @@
-package org.hac.amin.bayt.model;
+package org.hac.amin.bayt.util;
 
 
 import java.io.InputStream;

@@ -2,7 +2,7 @@ package org.hac.amin.bayt.controllers;
 
 import org.hac.amin.bayt.model.BaytConfig;
 import org.hac.amin.bayt.util.Click;
-import org.hac.dropbox.TestSensor;
+import org.hac.amin.bayt.util.pi.TestSensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +25,7 @@ public class BaytInfo {
 			return baytConfig;
 	}
 	
-	@RequestMapping(value="/health", method = RequestMethod.GET)
+	@RequestMapping(value="/apphealth", method = RequestMethod.GET)
 	public String getGreeting(){
 			
 			return "I am Alive !!";
@@ -33,12 +33,13 @@ public class BaytInfo {
 	
 	@RequestMapping(value="/activate", method = RequestMethod.GET)
 	public String activate(){
-		String status="OK:true";
+		String status="OK:true ";
 		if(baytConfig!=null){
 			if(baytConfig.isActivateSecurity()){
 				status="AlreadyActive:true";
 			}else{
 				baytConfig.setActivateSecurity(true);
+				status += baytConfig.isActivateSecurity();
 			}
 		}
 			

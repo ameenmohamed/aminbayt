@@ -1,4 +1,4 @@
-package org.hac.dropbox;
+package org.hac.amin.bayt.util.pi;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,7 +9,6 @@ import javax.annotation.PostConstruct;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
-import org.hac.amin.bayt.util.pi.ClickPic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -36,8 +35,8 @@ public class TestSensor {
 	BaytConfig baytConfig;
 	
 	public final static GpioController gpioSensor = GpioFactory.getInstance(); 
-	public final static  GpioPinDigitalInput sensor = gpioSensor.provisionDigitalInputPin(RaspiPin.GPIO_04, PinPullResistance.PULL_DOWN);
-	
+	public final static  GpioPinDigitalInput sensor = gpioSensor.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
+
 	
 	@PostConstruct
 	public void test(){

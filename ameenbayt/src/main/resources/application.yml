@@ -1,12 +1,16 @@
 server:
   port: 28080
+
 SerializationFeature.FAIL_ON_EMPTY_BEANS: false
-logging:
-  level:
-    org.springframework.web: DEBUG 
-spring:
-  jackson:
-    serialization.indent_output: true
+
+logging.level.org.springframework.web: DEBUG 
+
+spring.jackson.serialization.indent_output: true
+
+endpoints.pause.enabled: true
+endpoints.restart.enabled: true
+endpoints.resume.enabled: true
+
 ameenbayt:
   baytConfig: 
     dateFormat: MM-dd-yyyy hh:mm:ss
@@ -24,7 +28,7 @@ ameenbayt:
     lightOffCmdS1: lightOffCmdS1
     imgWidth: 1550
     imgHeight: 1163
-    activateSecurity: false
+    activateSecurity: true
     picTimeout: 3000
     motionPauseTime: 2
     systemState: prod

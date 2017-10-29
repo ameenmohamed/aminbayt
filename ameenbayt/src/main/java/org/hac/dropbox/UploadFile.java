@@ -7,8 +7,8 @@ import java.io.InputStream;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.hac.amin.bayt.model.BaytConfig;
-import org.hac.amin.bayt.model.S3WriteComponent;
-import org.hac.amin.bayt.model.WriteRequest;
+import org.hac.amin.bayt.util.S3WriteComponent;
+import org.hac.amin.bayt.util.WriteRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
