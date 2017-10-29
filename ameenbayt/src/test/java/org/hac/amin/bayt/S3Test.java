@@ -19,7 +19,7 @@ public class S3Test {
 	
 	/*public static void main(String[] args) throws FileNotFoundException {
 		
-		AWSCredentials credentials = new BasicAWSCredentials("AKIAJEIW36SNMMBZHA4A", "hbAPkR8SrrsbjYuV7da7mTKfJX3NoHaByhjKUErS");
+		
 		AmazonS3 s3client = new AmazonS3Client(credentials); 
 		String flName = "TestFile.jpg";
 		File fl = new File("E:/root/amdata/gausiaacademy/logo.jpg");
