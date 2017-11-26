@@ -13,6 +13,7 @@ public class PCClick implements Click {
 
 	@Override
 	public String apiClick() {		
+		System.out.println("Kachkack ...");
 		return "pcClick";
 	}
 

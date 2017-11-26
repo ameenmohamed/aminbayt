@@ -28,12 +28,43 @@ ameenbayt:
     lightOffCmdS1: lightOffCmdS1
     imgWidth: 1550
     imgHeight: 1163
-    activateSecurity: true
+    activateSecurity: false
     picTimeout: 3000
     motionPauseTime: 2
     systemState: prod
     burstCount: 5
     s3root: "ameenbayt"
-    s3fileloc: "tvroom"
+#    s3fileloc: "tvroom"
+    awsTopicArn: "arn:aws:sns:eu-west-1:213855317842:ameenbaytevents"
     awsakId: ENC(SYUbcrr6/5UYdaVOnlAs7mFgU5gBpeC5kUiqDjipQZk=)
     awsseckey: ENC(5UJ2dWVomEJrlmjbwq/eLSmCTBVIrJGv6MM+KILJBio612Q5aKzyAmCOifajUE1loZXycQM/whI=)
+
+---
+spring:
+  profiles: tvroom
+  
+ameenbayt:
+  baytConfig: 
+    dbPicLocation: "/pi/shafipi/"
+    dbVidLocation: "/pi/shafipi/video/"
+    s3fileloc: "tvroom"
+---
+spring:
+  profiles: pcroom
+  
+ameenbayt: 
+  baytConfig: 
+    dbPicLocation: "/pi/ovaispi/"
+    dbVidLocation: "/pi/ovaispi/video/"
+    s3fileloc: "pcroom"
+---
+spring:
+  profiles: bedroom
+---
+spring:
+  profiles: local
+HOME: "E:/root/git/aminbayt/ameenbayt/target"
+---
+spring:
+  profiles: pi
+HOME: "/home/pi/amdata/logs"    

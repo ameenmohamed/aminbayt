@@ -1,6 +1,7 @@
 package org.hac.amin.bayt.controllers;
 
 import org.hac.amin.bayt.model.BaytConfig;
+import org.hac.amin.bayt.model.CurrentState;
 import org.hac.amin.bayt.util.Click;
 import org.hac.amin.bayt.util.pi.TestSensor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,10 @@ public class BaytInfo {
 	
 	@Autowired
 	Click sayCheese;
+	
+	
+	@Autowired
+	CurrentState currState;
 	
 	//@RequestMapping(value="/myinfo", method = RequestMethod.GET)
 	public BaytConfig getMyConfig(){
@@ -68,5 +73,22 @@ public class BaytInfo {
 	     msg += " pin val :"+TestSensor.sensor.getState().getValue();
 	     return msg;
 	}
+	
+	@RequestMapping(value="/feed",method= RequestMethod.GET)
+	public String getFeed(){
+		StringBuilder returnVal = new StringBuilder();
+		for (int i = 0; i < 10; i++) {
+			returnVal.append(currState.getSerialFeed());
+		}
+	
+		return returnVal.toString();
+	}
+	
+	@RequestMapping(value="/resetalert",method= RequestMethod.GET)
+	public String resetAlert(){
+		
+		return Boolean.toString(currState.isAlertRaised());
+	}
+	
 	
 }

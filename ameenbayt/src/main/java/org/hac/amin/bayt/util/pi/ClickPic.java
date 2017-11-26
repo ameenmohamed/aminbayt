@@ -57,10 +57,7 @@ public class ClickPic implements Click{
 			piCamera.setWidth(Integer.parseInt(baytConfig.getImgWidth()));
 			piCamera.setHeight(Integer.parseInt(baytConfig.getImgHeight()));
 
-			// Adjust Camera's brightness setting.
-			// piCamera.setBrightness(75);
 
-			// Set Camera's timeout.
 			piCamera.setTimeout(2);
 			piCamera.setDateTimeOn();
 			piCamera.setFullPreviewOff();
@@ -69,26 +66,18 @@ public class ClickPic implements Click{
 
 			int ltVal = 0;
 			boolean lton = false;
-			CharSequence seq = "{";
-			if(isLowLight(null)){
-				piCamera.setExposure(Exposure.NIGHT);
-				piCamera.setISO(800);
-				piCamera.setShutter(250000);
-				logger.debug("Camera Set to night mode");
-			}else{
-				piCamera.setExposure(Exposure.AUTO);
+			piCamera.setExposure(Exposure.AUTO);
 				logger.debug("Camera Set to Auto mode");
-			}
 			piCamera.setAddRawBayer(true);
+			String _flName = getFileName();
 			File flPic = piCamera.takeStill(getFileName());
 			//Thread.sleep(baytConfig.getPicTimeout());
 
 			if (flPic.exists()) {
 				flupload.uploadToDropbox(flPic.getAbsolutePath());
-				flNameLoc = "File:" + flPic.getAbsolutePath() + flPic.getName() + "Uploaded.";
-			//	logger.debug(flNameLoc);				
+				flNameLoc = "File:" + flPic.getAbsolutePath() + _flName + "Uploaded.";
 				flPic.delete();
-			//	logger.debug("del :" + flPic.getAbsolutePath());
+
 			} else {
 				flNameLoc = "File:" + flPic.getAbsolutePath() + " Does not exist.";
 				logger.info(flNameLoc);				

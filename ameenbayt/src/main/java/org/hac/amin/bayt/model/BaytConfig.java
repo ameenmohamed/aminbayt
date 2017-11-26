@@ -43,5 +43,6 @@ public @Data class BaytConfig implements Serializable{
 	private String s3fileloc;
 	private String awsakId;
 	private String awsseckey;
+	private String awsTopicArn;
 
 }

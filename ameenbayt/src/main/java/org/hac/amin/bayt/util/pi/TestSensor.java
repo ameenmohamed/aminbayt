@@ -22,23 +22,23 @@ import com.pi4j.io.gpio.RaspiPin;
 
 
 
-@Component
-@Profile("!local")
+//@Component
+//@Profile("!local")
 public class TestSensor {
 	
 	private static final Logger logger = LogManager.getLogger(TestSensor.class);
 
-	@Autowired
+//	@Autowired
 	ClickPic kachack;
 	
-	@Autowired
+//	@Autowired
 	BaytConfig baytConfig;
 	
 	public final static GpioController gpioSensor = GpioFactory.getInstance(); 
 	public final static  GpioPinDigitalInput sensor = gpioSensor.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
 
 	
-	@PostConstruct
+	//@PostConstruct
 	public void test(){
 	
 		MonitorSensor mssor = new MonitorSensor(kachack,baytConfig);

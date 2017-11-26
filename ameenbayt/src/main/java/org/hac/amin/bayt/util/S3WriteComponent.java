@@ -20,62 +20,57 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.StorageClass;
 
-
-
 @Component
 public class S3WriteComponent {
 	private static final Logger logger = LogManager.getLogger(S3WriteComponent.class);
+
+
+	@Autowired	
+	AWSClientCredentials credentials;
 	
-	
-	//AWSCredentials credentials = new ProfileCredentialsProvider("default").getCredentials();
-	
-	AWSCredentials credentials ;
 	AmazonS3 s3client;
-//	AmazonS3 s3client = AmazonS3ClientBuilder.defaultClient();
 	
+
 	@Autowired
 	BaytConfig baytConfig;
-	
-	
+
 	private static final String SUFFIX = "/";
-	
+
 	@PostConstruct
 	public void S3Init() {
 		System.out.println("initializing s3....");
-		System.out.println(baytConfig.getAwsakId()+"  secret :");
-	
-		credentials = new BasicAWSCredentials(baytConfig.getAwsakId(), baytConfig.getAwsseckey());
-		 s3client = new AmazonS3Client(credentials); 
-		logger.info("s3 Instantiated ****************************************"+credentials.hashCode());
+		System.out.println(baytConfig.getAwsakId() + "  secret :");
+		s3client = new AmazonS3Client(credentials.getCredentials());
+		logger.info("s3 Instantiated ****************************************" + credentials.hashCode());
 	}
-	
-	
-	public String write(WriteRequest writeReq){
-		
+
+	public String write(WriteRequest writeReq) {
+
 		String flName = writeReq.getWindowsSafeName();
 		String versionId = "";
 		int flLen = 0;
 		ObjectMetadata objmeta = new ObjectMetadata();
 		try {
 			objmeta.setContentLength(writeReq.getFileio().available());
-			logger.info("**** >>> s3root: {}  file: {} ",baytConfig.getS3root().trim(),baytConfig.getS3fileloc().trim()+SUFFIX+flName.trim());
-			PutObjectRequest putObj = new PutObjectRequest(baytConfig.getS3root().trim(),baytConfig.getS3fileloc().trim()+SUFFIX+flName.trim(),writeReq.getFileio(),objmeta)
-					.withStorageClass(StorageClass.ReducedRedundancy);
+			logger.info("**** >>> s3root: {}  file: {} ", baytConfig.getS3root().trim(),baytConfig.getS3fileloc().trim() + SUFFIX + flName.trim());
+			
+			PutObjectRequest putObj = new PutObjectRequest(baytConfig.getS3root().trim(),baytConfig.getS3fileloc().trim() + SUFFIX + flName.trim(), writeReq.getFileio(), objmeta)
+							.withStorageClass(StorageClass.ReducedRedundancy);
+			
 			flLen = writeReq.getFileio().available();
 			PutObjectResult result = s3client.putObject(putObj);
-			 versionId = result.getVersionId();
-			
+			versionId = result.getVersionId();
+
 		} catch (IOException e1) {
-			
+
 			e1.printStackTrace();
 		}
-		//  
-		//.builder().bucket(baytConfig.getS3root()).key(baytConfig.getS3fileloc()+flName).storageClass(StorageClass.REDUCED_REDUNDANCY).build();  
-		
-		
-	
-		logger.info("**** >>> responseFl {} size {} put to s3 version {} ",baytConfig.getS3root()+baytConfig.getS3fileloc()+SUFFIX+flName,flLen,versionId);
-		
+		//
+		// .builder().bucket(baytConfig.getS3root()).key(baytConfig.getS3fileloc()+flName).storageClass(StorageClass.REDUCED_REDUNDANCY).build();
+
+		logger.info("**** >>> responseFl {} size {} put to s3 version {} ",
+				baytConfig.getS3root() + baytConfig.getS3fileloc() + SUFFIX + flName, flLen, versionId);
+
 		return flName;
 	}
 
